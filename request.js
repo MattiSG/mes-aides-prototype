@@ -52,8 +52,8 @@ function simulate(v) {
     }).done(function(data) {
         var result = {};
         result[data.value.children[2].children[1].children[0].name] = data.value.children[2].children[1].children[0].values[0];
-        result['Aides au logement'] = data.value.children[2].children[2].values[0];
-        result[data.value.children[2].children[1].children[4].name] = data.value.children[2].children[1].children[4].values[0];
+        result[data.value.children[2].children[2].children[0].name] = data.value.children[2].children[2].children[0].values[0];
+        result[data.value.children[2].children[2].children[1].name] = data.value.children[2].children[2].children[1].values[0];
         dfd.resolve(result);
     });
 
