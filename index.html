@@ -46,6 +46,7 @@
 			}
 
 			input[type=submit], button {
+				width: 100%;
 				background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(200, 200, 200, 0.3)), to(rgba(200, 200, 200, 0)));
 				background-image: -moz-linear-gradient(top, rgba(200, 200, 200, 0.3), rgba(200, 200, 200, 0));
 				background-image: -o-linear-gradient(rgba(200, 200, 200, 0.3), rgba(200, 200, 200, 0));
@@ -64,14 +65,6 @@
 				cursor: pointer;
 				-webkit-transition: background-color 0.5s;
 				-moz-transition: background-color 0.5s;
-			}
-
-			input[type="submit"] {
-				width: 100%;
-			}
-
-			#results button {
-				display: inline;
 			}
 
 			#spinner {
@@ -210,12 +203,17 @@
 
 			_.each(results, function(amount, label) {
 				var monthlyAmount = Math.floor(amount / 12);
-				html +=	  '<dt><h2>' + label + '</h2></dt>'
-						+ '<dd>' + monthlyAmount + '&nbsp;€&nbsp;/&nbsp;mois';
-				if (monthlyAmount > 0) {
-					html += '<button>Faire une demande en ligne &rarr;</button></dd>';
-				}
+				if (monthlyAmount <= 0) return;
+
+				html +=	  '<dt><h3>' + label + '</h3></dt>'
+						+ '<dd>' + monthlyAmount + '&nbsp;€&nbsp;/&nbsp;mois</dd>';
 			});
+
+			if (html) {
+				html =	'<h2>Au vu de ces premières informations, vous avez potentiellement droit à :</h2>'
+						+ html
+						+ '<button>Compléter ces informations et préciser la simulation &rarr;</button>';
+			}
 
 			$('#results').html(html);
 		}
