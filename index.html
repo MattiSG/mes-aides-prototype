@@ -30,6 +30,11 @@
 				position: relative;
 				top: .2em;
 			}
+
+			.inlineInput {
+				color: blue;
+				border-bottom: 1px dashed;
+			}
 		</style>
 	</head>
 	<body>
@@ -40,17 +45,16 @@
 		<div>
 			<p id="first">
 				Vous avez
-				<input required name="age" type="number" min="0" max="130" length="3" title="Entrez votre âge"/> <label for="age">ans</label>,
+				<input required name="age" type="number" min="0" max="130" length="3" title="Entrez votre âge"/> <label for="age">ans</label> et
 			</p>
 			<p>
 				vivez
 				<select name="marital">
-					<option value="alone">seul</option>
-					<option value="couple">en concubinage</option>
-					<option value="pacs">pacsé.e</option>
-					<option value="wed">marié.e</option>
+					<option value="seul">seul</option>
+					<option value="en concubinage">en concubinage</option>
+					<option value="pacsé.e">pacsé.e</option>
+					<option value="marié.e">marié.e</option>
 				</select>
-				,
 			</p>
 			<p>
 				à
@@ -75,6 +79,16 @@
 		$('input, select, #geolocate').on('click focus change', function(evt) {
 			var target = $(evt.target);
 			target.parent().next().addClass('active');
+
+			var deleted = target.parent().prev().find('input, select').replaceWith(function() {
+				return '<span data-type="' + this.type + '" class="inlineInput">' + this.value + '</span>';
+			});
+
+			target.parent().prev().find('span').on('click', function(evt) {
+				$(evt.target).replaceWith(function() {
+					return deleted;
+				});
+			});
 		});
 
 		$('#geolocate').on('click', function() {
