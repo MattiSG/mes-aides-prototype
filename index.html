@@ -72,6 +72,14 @@
 				margin: auto;
 				margin-top: 4em;
 			}
+			
+			h3 {
+				display: inline;
+			}
+			
+			li {
+				margin-left: -1.2em;
+			}
 		</style>
 	</head>
 	<body>
@@ -228,13 +236,12 @@
 				var monthlyAmount = Math.floor(amount / 12);
 				if (monthlyAmount <= 0) return;
 
-				html +=	  '<dt><h3>' + label + '</h3></dt>'
-						+ '<dd>' + monthlyAmount + '&nbsp;€&nbsp;/&nbsp;mois</dd>';
+				html +=	  '<li><h3>' + monthlyAmount + '&nbsp;€&nbsp;/&nbsp;mois </h3> (' + label + ')</li>';
 			});
 
 			if (html) {
 				html =	'<h2>Au vu de ces premières informations, vous avez potentiellement droit à :</h2>'
-						+ html
+						+ '<ul>' + html + '</ul>'
 						+ '<button>Compléter ces informations et préciser la simulation &rarr;</button>';
 			} else {
 				html =	'<h2>Au vu de ces premières informations, vous n’êtes éligible à aucune aide.</h2>'
