@@ -153,7 +153,12 @@
 		$('input, select, #geolocate').on('click focus change', function(evt) {
 			var target = $(evt.target);
 
-			var next = target.parent().nextAll('p').first();
+			var next = target;
+
+			while (! shouldShow(target, next)) {
+				next = next.parent().nextAll('p').first();
+			}
+
 			next.addClass('active');
 
 			if (! next.length) {
@@ -188,6 +193,14 @@
 			evt.preventDefault();
 			submit($(evt.target));
 		});
+
+		function shouldShow(currentlyEdited, possiblyShown) {
+			if (currentlyEdited == possiblyShown) {
+				return false;
+			}
+
+			return true;
+		}
 
 		function submit(form) {
 			if (! form[0].checkValidity()) {
