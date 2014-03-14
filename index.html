@@ -92,13 +92,13 @@
 			var target = $(evt.target);
 			target.parent().nextAll('p').first().addClass('active');
 
-			var prevSegment = target.parent().prevAll('p').first();
+			var prevSegments = target.parent().prevAll('p');
 
-			var deleted = prevSegment.find('input, select').replaceWith(function() {
+			var deleted = prevSegments.find('input, select').replaceWith(function() {
 				return '<span data-type="' + this.type + '" class="inlineInput">' + this.value + '</span>';
 			});
 
-			prevSegment.find('span').on('click', function(evt) {
+			prevSegments.find('span').on('click', function(evt) {
 				$(evt.target).replaceWith(function() {
 					return deleted;
 				});
