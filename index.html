@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<title>Votre situation [Prototype]</title>
+
+		<style type="text/css" media="screen">
+			body {
+				max-width: 900px;
+				font-family: "Helvetica Neue", sans-serif;
+				background-color: #E3E3E3;
+				margin: auto;
+			}
+
+			p, input, select {
+				font-size: 120%;
+			}
+
+			p {
+				opacity: 0.6;
+			}
+
+			p:hover, .active {
+				opacity: 1;
+			}
+
+			#geolocate {
+				cursor: pointer;
+				position: relative;
+				top: .2em;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Bienvenue !</h1>
+		<h3>Pour déterminer les aides que l'État peut vous apporter, nous allons définir votre situation.</h3>
+
+		<h2>Aujourd’hui,</h2>
+		<div>
+			<p>
+				Vous avez
+				<input required name="age" type="number" min="0" max="130" length="3" title="Entrez votre âge"/> <label for="age">ans</label>.
+			</p>
+			<p>
+				Vous vivez
+				<select name="marital">
+					<option value="alone">seul</option>
+					<option value="couple">en concubinage</option>
+					<option value="pacs">pacsé.e</option>
+					<option value="wed">marié.e</option>
+				</select>
+				.
+			</p>
+			<p>
+				Vous habitez à
+				<input required name="town" placeholder="ville ou code postal"/>
+				<img id="geolocate" src="target.png" title="Utiliser votre position actuelle"/>
+				.
+			<p>
+		</div>
+
+		<h2>Ces trois derniers mois,</h2>
+		<div>
+			<p>Vous avez gagné</p>
+			<label for="minus">en février</label> <input type="number" name="minus1"/>&nbsp;€
+			<label for="minus">en janvier</label> <input type="number" name="minus2"/>&nbsp;€
+			<label for="minus">en décembre 2013</label> <input type="number" name="minus3"/>&nbsp;€
+		</div>
+	</body>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script type="text/javascript">
+		$('input, select, #geolocate').on('click focus change', function(evt) {
+			var target = $(evt.target);
+			target.parent().addClass('active');
+		});
+
+		$('#geolocate').on('click', function() {
+			window.setTimeout(function() {
+				$('[name="town"]').val('Montreuil');
+			}, 1000);
+		});
+
+		$('div p:first-of-type').addClass('active');
+	</script>
+</html>
