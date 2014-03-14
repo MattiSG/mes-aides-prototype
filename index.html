@@ -43,6 +43,35 @@
 				color: blue;
 				border-bottom: 1px dashed;
 			}
+
+			input[type=submit], button {
+				background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(200, 200, 200, 0.3)), to(rgba(200, 200, 200, 0)));
+				background-image: -moz-linear-gradient(top, rgba(200, 200, 200, 0.3), rgba(200, 200, 200, 0));
+				background-image: -o-linear-gradient(rgba(200, 200, 200, 0.3), rgba(200, 200, 200, 0));
+				background-color: #ff4400;
+				margin-top: 2em;
+				display: block;
+				padding: 0.3em 0.5em 0.3em;
+				color: #fff;
+				text-decoration: none;
+				border-radius: 0.3em;
+				border: none;
+				-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+				-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+				text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+				border-bottom: 1px solid rgba(0,0,0,0.25);
+				cursor: pointer;
+				-webkit-transition: background-color 0.5s;
+				-moz-transition: background-color 0.5s;
+			}
+
+			input[type="submit"] {
+				width: 100%;
+			}
+
+			#spinner {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
@@ -83,6 +112,7 @@
 			</p>
 			<p>
 				<br>
+				<br>
 				<strong>Ces trois derniers mois</strong>,
 				vous avez gagné <input required type="number" name="minus1" length="5" min="0"/><label for="minus">&nbsp;€ en février</label>
 				,
@@ -100,10 +130,24 @@
 				<input type="submit" value="Quelles aides puis-je demander ?"/>
 			</p>
 		</form>
+
+		<dl id="results">
+			<img src="spinning-loader.svg" id="spinner" alt="En attente des résultats…"/>
+			<!-- Filled in JS with:
+			<dt><h2>RSA</h2></dt>
+			<dd>500€/mois <button>Faire une demande en ligne &rarr;</button></dd>
+			<dt><h2>ALS</h2></dt>
+			<dd>200€/mois <button>Faire une demande en ligne &rarr;</button></dd> -->
+		</dl>
 	</body>
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+	<script type="text/javascript" src="request.js"></script>
+
 	<script type="text/javascript">
+		var values = {};
+
 		$('input, select, #geolocate').on('click focus change', function(evt) {
 			var target = $(evt.target);
 
@@ -119,6 +163,7 @@
 			var deleted = prevSegments.find('input, select').filter(function(elm) {
 				return this.checkValidity();
 			}).replaceWith(function() {
+				values[this.name] = this.value;
 				return '<span data-type="' + this.type + '" class="inlineInput">' + this.value + '</span>';
 			});
 
@@ -138,11 +183,25 @@
 		$('#first').addClass('active');
 
 		$('form').submit(function(evt) {
+			evt.preventDefault();
 			submit($(evt.target));
 		});
 
 		function submit(form) {
-			console.log(form.serialize());
+			$('#spinner').show();
+			$('input[type="submit"]').hide();
+			simulate(values).then(showResults);
+		}
+
+		function showResults(results) {
+			var html = '';
+
+			_.each(results, function(amount, label) {
+				html +=	  '<dt><h2>' + label + '</h2></dt>'
+						+ '<dd>' + Math.floor(amount) + '&nbsp;€&nbsp;/&nbsp;mois <button>Faire une demande en ligne &rarr;</button></dd>'
+			});
+
+			$('#results').html(html);
 		}
 	</script>
 </html>
