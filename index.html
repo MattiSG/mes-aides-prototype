@@ -195,6 +195,11 @@
 		});
 
 		function submit(form) {
+			if (! form[0].checkValidity()) {
+				console.log('Form is invalid, will not submit');
+				return false;
+			}
+				
 			$('#spinner').show();
 			$('input[type="submit"]').hide();
 			simulate(values).then(showResults);
