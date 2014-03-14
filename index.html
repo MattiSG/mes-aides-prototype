@@ -198,8 +198,12 @@
 			var html = '';
 
 			_.each(results, function(amount, label) {
+				var monthlyAmount = Math.floor(amount / 12);
 				html +=	  '<dt><h2>' + label + '</h2></dt>'
-						+ '<dd>' + Math.floor(amount) + '&nbsp;€&nbsp;/&nbsp;mois <button>Faire une demande en ligne &rarr;</button></dd>'
+						+ '<dd>' + monthlyAmount + '&nbsp;€&nbsp;/&nbsp;mois';
+				if (monthlyAmount > 0) {
+					html += '<button>Faire une demande en ligne &rarr;</button></dd>';
+				}
 			});
 
 			$('#results').html(html);
