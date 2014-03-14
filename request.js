@@ -22,6 +22,7 @@ function simulate(v) {
     };
     var secondPerson = _.clone(firstPerson);
     secondPerson.id = 'ind1';
+    secondPerson.sali = 0;
     var individus = v.marital === 'seul' ? [firstPerson] : [firstPerson, secondPerson];
     var menages = {
         personne_de_reference: 'ind0',
