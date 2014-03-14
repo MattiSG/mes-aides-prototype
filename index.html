@@ -18,11 +18,11 @@
 			}
 
 			p {
-				opacity: 0.6;
+				display: none;
 			}
 
-			p:hover, .active {
-				opacity: 1;
+			p.active {
+				display: inline;
 			}
 
 			#geolocate {
@@ -38,22 +38,22 @@
 
 		<h2>Aujourd’hui,</h2>
 		<div>
-			<p>
+			<p id="first">
 				Vous avez
-				<input required name="age" type="number" min="0" max="130" length="3" title="Entrez votre âge"/> <label for="age">ans</label>.
+				<input required name="age" type="number" min="0" max="130" length="3" title="Entrez votre âge"/> <label for="age">ans</label>,
 			</p>
 			<p>
-				Vous vivez
+				vivez
 				<select name="marital">
 					<option value="alone">seul</option>
 					<option value="couple">en concubinage</option>
 					<option value="pacs">pacsé.e</option>
 					<option value="wed">marié.e</option>
 				</select>
-				.
+				,
 			</p>
 			<p>
-				Vous habitez à
+				à
 				<input required name="town" placeholder="ville ou code postal"/>
 				<img id="geolocate" src="target.png" title="Utiliser votre position actuelle"/>
 				.
@@ -62,10 +62,11 @@
 
 		<h2>Ces trois derniers mois,</h2>
 		<div>
-			<p>Vous avez gagné</p>
-			<label for="minus">en février</label> <input type="number" name="minus1"/>&nbsp;€
-			<label for="minus">en janvier</label> <input type="number" name="minus2"/>&nbsp;€
-			<label for="minus">en décembre 2013</label> <input type="number" name="minus3"/>&nbsp;€
+			<p>Vous avez gagné
+				<label for="minus">en février</label> <input type="number" name="minus1"/>&nbsp;€
+				<label for="minus">en janvier</label> <input type="number" name="minus2"/>&nbsp;€
+				<label for="minus">en décembre 2013</label> <input type="number" name="minus3"/>&nbsp;€
+			</p>
 		</div>
 	</body>
 
@@ -73,7 +74,7 @@
 	<script type="text/javascript">
 		$('input, select, #geolocate').on('click focus change', function(evt) {
 			var target = $(evt.target);
-			target.parent().addClass('active');
+			target.parent().next().addClass('active');
 		});
 
 		$('#geolocate').on('click', function() {
@@ -82,6 +83,6 @@
 			}, 1000);
 		});
 
-		$('div p:first-of-type').addClass('active');
+		$('#first').addClass('active');
 	</script>
 </html>
