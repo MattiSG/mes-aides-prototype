@@ -41,7 +41,7 @@
 		<h1>Bienvenue !</h1>
 		<h3>Pour déterminer les aides que l'État peut vous apporter, nous allons définir votre situation.</h3>
 
-		<div>
+		<form>
 			<p id="first">
 				<strong>Aujourd’hui</strong>,
 				vous avez
@@ -88,14 +88,23 @@
 				<input required type="number" name="minus3" length="5" min="0"/><label for="minus3">&nbsp;€ en décembre 2013</label>
 				.
 			</p>
-		</div>
+			<p>
+				<input type="submit" value="Quelles aides puis-je demander ?"/>
+			</p>
+		</form>
 	</body>
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript">
 		$('input, select, #geolocate').on('click focus change', function(evt) {
 			var target = $(evt.target);
-			target.parent().nextAll('p').first().addClass('active');
+
+			var next = target.parent().nextAll('p').first();
+			next.addClass('active');
+
+			if (! next.length) {
+				submit($('form'));
+			}
 
 			var prevSegments = target.parent().prevAll('p');
 
@@ -119,5 +128,13 @@
 		});
 
 		$('#first').addClass('active');
+
+		$('form').submit(function(evt) {
+			submit($(evt.target));
+		});
+
+		function submit(form) {
+			console.log(form.serialize());
+		}
 	</script>
 </html>
