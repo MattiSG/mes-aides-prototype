@@ -189,6 +189,14 @@
 
 		$('#first').addClass('active');
 
+		$('[name="tenancy"]').change(function() {
+			if (this.value == 'propriétaire') {
+				values.rent = 0;
+				$('[name="rent"]').click();
+				$('[name="rent"]').parent().replaceWith('.');
+			}
+		});
+
 		$('form').submit(function(evt) {
 			evt.preventDefault();
 			submit($(evt.target));
