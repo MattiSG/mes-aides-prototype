@@ -132,7 +132,7 @@
 				.
 			</p>
 			<p>
-				<input type="submit" value="Quelles aides puis-je demander ?"/>
+				<input type="submit" value="Ai-je droit à des aides ?"/>
 			</p>
 		</form>
 
@@ -152,7 +152,7 @@
 
 	<script type="text/javascript">
 		$('body').addClass('js');
-	
+
 		var values = {};
 
 		$('input, select, #geolocate').on('click focus change', function(evt) {
@@ -199,7 +199,7 @@
 				console.log('Form is invalid, will not submit');
 				return false;
 			}
-				
+
 			$('#spinner').show();
 			$('input[type="submit"]').hide();
 			simulate(values).then(showResults);
