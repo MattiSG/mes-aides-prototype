@@ -94,7 +94,9 @@
 
 			var prevSegments = target.parent().prevAll('p');
 
-			var deleted = prevSegments.find('input, select').replaceWith(function() {
+			var deleted = prevSegments.find('input, select').filter(function(elm) {
+				return this.checkValidity();
+			}).replaceWith(function() {
 				return '<span data-type="' + this.type + '" class="inlineInput">' + this.value + '</span>';
 			});
 
