@@ -41,10 +41,10 @@
 		<h1>Bienvenue !</h1>
 		<h3>Pour déterminer les aides que l'État peut vous apporter, nous allons définir votre situation.</h3>
 
-		<h2>Aujourd’hui,</h2>
 		<div>
 			<p id="first">
-				Vous avez
+				<strong>Aujourd’hui</strong>,
+				vous avez
 				<input required name="age" type="number" min="0" max="130" length="3" title="Entrez votre âge"/> <label for="age">ans</label> et
 			</p>
 			<p>
@@ -59,17 +59,23 @@
 			<p>
 				à
 				<input required name="town" placeholder="ville ou code postal"/>
-				<img id="geolocate" src="target.png" title="Utiliser votre position actuelle"/>
+				<!-- <img id="geolocate" src="target.png" title="Utiliser votre position actuelle"/> -->
 				.
+			</p>
 			<p>
-		</div>
-
-		<h2>Ces trois derniers mois,</h2>
-		<div>
-			<p>Vous avez gagné
-				<label for="minus">en février</label> <input type="number" name="minus1"/>&nbsp;€
-				<label for="minus">en janvier</label> <input type="number" name="minus2"/>&nbsp;€
-				<label for="minus">en décembre 2013</label> <input type="number" name="minus3"/>&nbsp;€
+				<br>
+				<strong>Ces trois derniers mois</strong>,
+				vous avez gagné <input type="number" name="minus1" length="5" min="0"/><label for="minus">&nbsp;€ en février</label>
+				,
+			</p>
+			<p>
+				<input type="number" name="minus2" length="5" min="0"/><label for="minus">&nbsp;€ en janvier</label>
+				,
+			</p>
+			<p>
+				et
+				<input type="number" name="minus2" length="5" min="0"/><label for="minus">&nbsp;€ en décembre 2013</label>
+				.
 			</p>
 		</div>
 	</body>
@@ -78,13 +84,15 @@
 	<script type="text/javascript">
 		$('input, select, #geolocate').on('click focus change', function(evt) {
 			var target = $(evt.target);
-			target.parent().next().addClass('active');
+			target.parent().nextAll('p').first().addClass('active');
 
-			var deleted = target.parent().prev().find('input, select').replaceWith(function() {
+			var prevSegment = target.parent().prevAll('p').first();
+
+			var deleted = prevSegment.find('input, select').replaceWith(function() {
 				return '<span data-type="' + this.type + '" class="inlineInput">' + this.value + '</span>';
 			});
 
-			target.parent().prev().find('span').on('click', function(evt) {
+			prevSegment.find('span').on('click', function(evt) {
 				$(evt.target).replaceWith(function() {
 					return deleted;
 				});
