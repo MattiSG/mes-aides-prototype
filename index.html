@@ -29,7 +29,7 @@
 				display: none;
 			}
 
-			p, body.js p.active {
+			p, body.js p.active, #results p {
 				display: inline;
 			}
 
@@ -69,6 +69,8 @@
 
 			#spinner {
 				display: none;
+				margin: auto;
+				margin-top: 4em;
 			}
 		</style>
 	</head>
@@ -193,7 +195,7 @@
 				return false;
 			}
 
-			$('#spinner').show();
+			$('#spinner').css('display', 'block');
 			$('input[type="submit"]').hide();
 			simulate(values).then(showResults);
 		}
