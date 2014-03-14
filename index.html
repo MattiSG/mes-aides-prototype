@@ -213,6 +213,9 @@
 				html =	'<h2>Au vu de ces premières informations, vous avez potentiellement droit à :</h2>'
 						+ html
 						+ '<button>Compléter ces informations et préciser la simulation &rarr;</button>';
+			} else {
+				html =	'<h2>Au vu de ces premières informations, vous n’êtes éligible à aucune aide.</h2>'
+						+ '<p>Vous pouvez <a href="#">contacter une assistante sociale</a> pour faire un bilan personnel de votre situation.</p>';
 			}
 
 			$('#results').html(html);
